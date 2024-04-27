@@ -7,113 +7,113 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 0-0-0
+      name: 0-0-0.001
     second: {fileID: 2100000, guid: 406866a4cb463ea439068fda06e9713b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 0009_Linen
+      name: 0009_Linen.001
     second: {fileID: 2100000, guid: df71a54b42265f24bb3e9c6ba5c51125, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 0020_Red
+      name: 0020_Red.001
     second: {fileID: 2100000, guid: f77421b038c64bb4cac8bf638107e299, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 0046_Gold
+      name: 0046_Gold.001
     second: {fileID: 2100000, guid: 33cfe1ed2354ccf41a0da90f9fe3f2c2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 0065_Lime
+      name: 0065_Lime.001
     second: {fileID: 2100000, guid: 0c825c921bb4d1c48a7b23cc5ec7b727, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 0076_Green
+      name: 0076_Green.001
     second: {fileID: 2100000, guid: 6c05cbb4bf65ff941a52db077f705e5d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 0106_DarkBlue
-    second: {fileID: 2100000, guid: 15f7334aa65fd5646b7f95eeab5eec57, type: 2}
+      name: 0106_DarkBlue.001
+    second: {fileID: 2100000, guid: 33cfe1ed2354ccf41a0da90f9fe3f2c2, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 0137_Black
-    second: {fileID: 2100000, guid: b12b5cd44beb27c45b3fdae3680b4473, type: 2}
+      name: 0137_Black.001
+    second: {fileID: 2100000, guid: 406866a4cb463ea439068fda06e9713b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 60-60-60
+      name: 60-60-60.001
     second: {fileID: 2100000, guid: 0fbd818e4b01d1f488edc2cb36c34474, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Color_000
-    second: {fileID: 2100000, guid: 8b870b8274c1fa2418b8514c6e2321cf, type: 2}
+      name: Color_000.001
+    second: {fileID: 2100000, guid: df71a54b42265f24bb3e9c6ba5c51125, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Color_I03
-    second: {fileID: 2100000, guid: 76543d4a25c672649af4823287594c83, type: 2}
+      name: Color_I03.001
+    second: {fileID: 2100000, guid: df71a54b42265f24bb3e9c6ba5c51125, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Materia`l1
-    second: {fileID: 2100000, guid: cfc6330f34f906240a85d4bb5c890187, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material2
-    second: {fileID: 2100000, guid: 963d5733bea2d564cbdd0e5e87690f99, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material3
-    second: {fileID: 2100000, guid: 6f3a1dfededa9994d9229909bc7dd322, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material4
-    second: {fileID: 2100000, guid: 7e421b73bfab4ac48844a6df88f4eab9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material5
-    second: {fileID: 2100000, guid: ff38e5eeaaeb79744b3371cb509e7339, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material8
+      name: Materia`l1.001
     second: {fileID: 2100000, guid: b965d58ab0312e44fa3f8a08d1fad886, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: '[0129_WhiteSmoke]1'
-    second: {fileID: 2100000, guid: 0581968df6c93df4ea71d166a5acf4f1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: '[Color_006]2'
-    second: {fileID: 2100000, guid: bc9212b689ddd9f49a126b34afd8b2dd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: _CoolGray8_2
-    second: {fileID: 2100000, guid: 913524706931d0c4b928c754e1f490ab, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: skp_front_default
-    second: {fileID: 2100000, guid: c172474c4e6dd314a9e74faf781d4029, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: wheelinner1
+      name: Material2.001
     second: {fileID: 2100000, guid: b741c21ff9680f24eb4e1ca96a35e39f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material3.001
+    second: {fileID: 2100000, guid: 406866a4cb463ea439068fda06e9713b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material4.001
+    second: {fileID: 2100000, guid: 0fbd818e4b01d1f488edc2cb36c34474, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material5.001
+    second: {fileID: 2100000, guid: b741c21ff9680f24eb4e1ca96a35e39f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material8.001
+    second: {fileID: 2100000, guid: b965d58ab0312e44fa3f8a08d1fad886, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[0129_WhiteSmoke]1.001'
+    second: {fileID: 2100000, guid: df71a54b42265f24bb3e9c6ba5c51125, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Color_006]2.001'
+    second: {fileID: 2100000, guid: 0fbd818e4b01d1f488edc2cb36c34474, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _CoolGray8_2.001
+    second: {fileID: 2100000, guid: 0fbd818e4b01d1f488edc2cb36c34474, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skp_front_default.001
+    second: {fileID: 2100000, guid: df71a54b42265f24bb3e9c6ba5c51125, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheelinner1.001
+    second: {fileID: 2100000, guid: 0fbd818e4b01d1f488edc2cb36c34474, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -188,7 +188,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []
@@ -201,7 +201,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: mixamorig:Hips
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
