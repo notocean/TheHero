@@ -11,6 +11,7 @@ public class MainInfor : MonoBehaviour
 
     private MainState state;
     private int attackIndex = -1;
+    private bool isAttack = false;
 
     private void Awake() {
         mainVirtual = GetComponent<MainVirtual>();
@@ -31,6 +32,9 @@ public class MainInfor : MonoBehaviour
             this.state = state;
 
             changeStateEvent?.Invoke(state);
+            if (state == MainState.Attack) {
+                isAttack = true;
+            }
         }
     }
 
@@ -44,6 +48,11 @@ public class MainInfor : MonoBehaviour
     }
 
     public void DontAttack() {
-        mainVirtual.DontAttack();
+        mainVirtual.StopAttack();
+        isAttack = false;
+    }
+
+    public bool IsAttack() {
+        return isAttack;
     }
 }

@@ -39,7 +39,7 @@ public class MainVirtual : MonoBehaviour
         }
     }
 
-    public void DontAttack() {
+    public void StopAttack() {
         animator.SetInteger("Attack", 0);
     }
 }

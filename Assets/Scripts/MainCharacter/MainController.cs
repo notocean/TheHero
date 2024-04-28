@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -27,6 +28,7 @@ public class MainController : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;      // movement
     private Vector3 moveDirection;
     private bool isMove = false;
+    Vector3 v;
 
     private void Awake() {
         mainInfor = GetComponent<MainInfor>();
@@ -79,42 +81,46 @@ public class MainController : MonoBehaviour
     }
 
     private void Movement_performed(InputAction.CallbackContext obj) {
-        if (!mainInfor.IsState(MainState.Attack)) {
-            if (GameSettings.Instance.GetMovementMode() == MovementMode.Mouse) {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, 100f, layerMask)) {
-                    Instantiate(clickedPointObject, hit.point, clickedPointObject.transform.rotation);
-                    moveToPos = hit.point;
-
-                    targetQuaternion = Quaternion.LookRotation(moveToPos - transform.position, Vector3.up);
-                    if (!isRotate) {
-                        StartCoroutine(RotateToPointCoroutine(rotateSpeed));
-                    }
-                }
-            }
-        }
-        
-    }
-
-    private void Attack_performed(InputAction.CallbackContext obj) {
-        if (!mainInfor.IsState(MainState.Attack)) {
-            DontMove();
-            mainInfor.ChangeState(MainState.Idle);
-            mainInfor.ChangeState(MainState.Attack);
+        if (GameSettings.Instance.GetMovementMode() == MovementMode.Mouse) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 100f, layerMask)) {
-                StopCoroutine(RotateToPointCoroutine(2 * rotateSpeed));
-                StartCoroutine(RotateToPointCoroutine(2 * rotateSpeed));
+                Instantiate(clickedPointObject, hit.point, clickedPointObject.transform.rotation);
+                moveToPos = hit.point;
+                v = moveToPos;
+                StopCoroutine(RotateToPointCoroutine(1.25f * rotateSpeed));
+
+                targetQuaternion = Quaternion.LookRotation(moveToPos - transform.position, Vector3.up);
+                if (!isRotate) {
+                    StartCoroutine(RotateToPointCoroutine(rotateSpeed));
+                }
+            }
+        }
+
+        if (mainInfor.IsAttack()) {
+            mainInfor.DontAttack();
+        }
+    }
+
+    private void Attack_performed(InputAction.CallbackContext obj) {
+        if (!mainInfor.IsAttack()) {
+            DontMove();
+            mainInfor.ChangeState(MainState.Idle);
+            mainInfor.ChangeState(MainState.Attack);
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100f, layerMask)) {
+                v = hit.point;
+                StopAllCoroutines();
                 targetQuaternion = Quaternion.LookRotation(hit.point - transform.position, Vector3.up);
+                StartCoroutine(RotateToPointCoroutine(1.25f * rotateSpeed));
             }
         }
     }
 
-    private IEnumerator RotateToPointCoroutine(int rotateSpeed) {
+    private IEnumerator RotateToPointCoroutine(float rotateSpeed) {
         isRotate = true;
         currentQuaternion = transform.rotation;
         while (!Quaternion.Equals(currentQuaternion, targetQuaternion)) {
