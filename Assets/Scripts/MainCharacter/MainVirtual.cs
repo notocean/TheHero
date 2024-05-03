@@ -34,7 +34,8 @@ public class MainVirtual : MonoBehaviour
                 animator.SetBool("IsRun", true);
                 break;
             case MainState.Attack:
-                animator.SetInteger("Attack", mainInfor.GetAttackIndex());
+                animator.SetInteger("Attack", mainInfor.GetAttackType());
+                mainInfor.ChangeAttackType();
                 break;
         }
     }

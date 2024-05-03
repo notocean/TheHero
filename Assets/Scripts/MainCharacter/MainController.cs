@@ -23,15 +23,17 @@ public class MainController : MonoBehaviour
     private Quaternion currentQuaternion;               // rotation
     private Quaternion targetQuaternion;
     private bool isRotate = false;
-    [SerializeField] private int rotateSpeed = 200;
-
-    [SerializeField] private float moveSpeed = 3f;      // movement
+    private int rotateSpeed;
+    
+    private float moveSpeed;                       // movement
     private Vector3 moveDirection;
     private bool isMove = false;
     Vector3 v;
 
     private void Awake() {
         mainInfor = GetComponent<MainInfor>();
+        rotateSpeed = mainInfor.GetRotateSpeed();
+        moveSpeed = mainInfor.GetMoveSpeed();
 
         mainInputAction = new MainInputAction();
         mainInputAction.Enable();
@@ -105,18 +107,21 @@ public class MainController : MonoBehaviour
 
     private void Attack_performed(InputAction.CallbackContext obj) {
         if (!mainInfor.IsAttack()) {
-            DontMove();
-            mainInfor.ChangeState(MainState.Idle);
-            mainInfor.ChangeState(MainState.Attack);
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100f, layerMask)) {
                 v = hit.point;
                 StopAllCoroutines();
                 targetQuaternion = Quaternion.LookRotation(hit.point - transform.position, Vector3.up);
+                if (mainInfor.GetAttackType() == 3) {
+                    targetQuaternion *= Quaternion.Euler(0f, -15f, 0f);
+                }
                 StartCoroutine(RotateToPointCoroutine(1.25f * rotateSpeed));
             }
+
+            DontMove();
+            mainInfor.ChangeState(MainState.Idle);
+            mainInfor.ChangeState(MainState.Attack);
         }
     }
 
