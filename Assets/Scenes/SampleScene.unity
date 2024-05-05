@@ -721,7 +721,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 0.1, z: 2}
+  m_LocalScale: {x: 10, y: 0.1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1018,35 +1018,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3101879370834510093, guid: d3dec35bcd77fd44d974c0f9c54ce949,
-        type: 3}
-      propertyPath: swordObject
-      value: 
-      objectReference: {fileID: 6944804673097097574}
-    - target: {fileID: 3132119785059289203, guid: d3dec35bcd77fd44d974c0f9c54ce949,
-        type: 3}
-      propertyPath: m_TagString
-      value: Sword
-      objectReference: {fileID: 0}
-    - target: {fileID: 7558778313937849515, guid: d3dec35bcd77fd44d974c0f9c54ce949,
+    - target: {fileID: 7508348339040250606, guid: d3dec35bcd77fd44d974c0f9c54ce949,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7558778313937849515, guid: d3dec35bcd77fd44d974c0f9c54ce949,
-        type: 3}
-      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8560341803214310401, guid: d3dec35bcd77fd44d974c0f9c54ce949,
         type: 3}
       propertyPath: m_Name
       value: MainCharacter
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560341803214310401, guid: d3dec35bcd77fd44d974c0f9c54ce949,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 9045375601614280379, guid: d3dec35bcd77fd44d974c0f9c54ce949,
         type: 3}
@@ -1101,30 +1081,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3132119785059289203, guid: d3dec35bcd77fd44d974c0f9c54ce949,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6944804673097097575}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3dec35bcd77fd44d974c0f9c54ce949, type: 3}
---- !u!1 &6944804673097097574 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3132119785059289203, guid: d3dec35bcd77fd44d974c0f9c54ce949,
-    type: 3}
-  m_PrefabInstance: {fileID: 6944804673097097573}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6944804673097097575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6944804673097097574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86993226d48e7e247927c4b2acca5a8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

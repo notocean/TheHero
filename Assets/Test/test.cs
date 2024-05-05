@@ -29,6 +29,9 @@ public class test : MonoBehaviour
             GameObject gObject = Instantiate(damageNotifyOb, transform.position, Quaternion.Euler(0, 180, 0));
             gObject.GetComponentInChildren<TMP_Text>().text = weaponDamage.GetDamage().ToString();
             animator.SetTrigger("takedamage");
+
+            Vector3 vec3 = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+            Instantiate(weaponDamage.GetHitSlashObj(), vec3, weaponDamage.GetHitSlashObj().transform.rotation);
         }
     }
 }

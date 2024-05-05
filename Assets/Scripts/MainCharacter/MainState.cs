@@ -1,3 +1,3 @@
 public enum MainState {
-	Idle, Run, Attack, UseSkill
+	Idle, Run, Attack, Surf
 }
