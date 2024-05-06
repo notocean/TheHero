@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GolemScr : MonoBehaviour
+public class SpiderScr : MonoBehaviour
 {
     Rigidbody rd;
     Animator at;
     Vector3 startPosition;
     GameObject player;
 
-    float speed = 10.0f;
+    float speed = 5.0f;
     float startTime;
     public float jumpForce = 10.0f;
     bool isJump;
     float timeAttackDelay = 2.5f, timeAttack;
-    float timeAttackDelay2 = 3f, timeAttack2;
-    float rangeFindPlayer = 50f, rangeJump = 40f, rangeAttack = 5.0f;
+    float rangeFindPlayer = 50f, rangeAttack = 5.0f;
     [SerializeField] float health, maxHealth = 300.0f;
     int level;
     public void setLevel(int i){
@@ -59,29 +58,25 @@ public class GolemScr : MonoBehaviour
                 }
             }
         }
-        if(player != null && !isJump){
+        if(player != null && !isJump && this.health > 0){
             float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
             if(distanceToPlayer <= rangeAttack){
-                at.SetFloat("Walk", 0);
+                if(player.GetComponent<Rigidbody>().velocity.magnitude != 0){
+                    at.SetFloat("Run", 1);
+                }
+                else at.SetFloat("Run", 0);
                 if(timeAttack <= 0){
                     this.attack();
                     at.SetTrigger("Hit");
                     timeAttack = timeAttackDelay;
                 }
-                if(timeAttack2 <= 0){
-                    this.attack();
-                    at.SetTrigger("Hit2");
-                    timeAttack2 = timeAttackDelay2;
-                }
             }
         }
         timeAttack -= Time.deltaTime;
-        timeAttack2 -= Time.deltaTime;
         if(this.health <= 0){
-            at.SetTrigger("Rage");
             //goi phuong thuc tan cong
             at.SetTrigger("Die");
-            Destroy(gameObject,2.0f);
+            Destroy(gameObject,5.0f);
         }
     }
 
@@ -94,35 +89,23 @@ public class GolemScr : MonoBehaviour
                 dirMove.y = 0;
                 float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
                 transform.LookAt(player.transform);
-                if(distanceToPlayer > rangeJump){
-                    this.Jump(player.transform.position);
-                }
-                else if(distanceToPlayer > rangeAttack){
+                if(distanceToPlayer > rangeAttack / 2.0f){
                     transform.position += dirMove * speed * Time.deltaTime;
                     Debug.Log(transform.position);
-                    at.SetFloat("Walk", 1);
+                    at.SetFloat("Run", 1);
                 }
             }
             else{
-                if(Vector3.Distance(transform.position, startPosition) < 3.0f) at.SetFloat("Walk", 0);
+                if(Vector3.Distance(transform.position, startPosition) < 3.0f) at.SetFloat("Run", 0);
                 else {
                     Vector3 dirMove = (startPosition - transform.position);
                     dirMove.Normalize();
                     transform.position += dirMove * speed * Time.deltaTime;
-                    at.SetFloat("Walk", 1);
+                    at.SetFloat("Run", 1);
                     transform.LookAt(startPosition);
                 }
             }
         }
-    }
-
-    public void Jump(Vector3 targetPosition)
-    {
-        Vector3 dirJump = (targetPosition - transform.position) / 8;
-        dirJump.y = jumpForce;
-        rd.AddForce(dirJump, ForceMode.Impulse);
-        at.SetTrigger("Jump");
-        isJump = true;
     }
 
     void attack(){
