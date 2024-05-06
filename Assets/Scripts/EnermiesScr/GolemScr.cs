@@ -7,12 +7,13 @@ public class GolemScr : MonoBehaviour
     Rigidbody rd;
     Animator at;
 
-    float speed = 25.0f;
+    float speed = 10.0f;
     Vector3 startPosition;
     GameObject player;
     float startTime;
     public float jumpForce = 10.0f;
     bool isJump;
+    float timeAttack, timeAttackDelay = 2.0f;
     
     [SerializeField] float dame = 5.0f;
 
@@ -25,10 +26,12 @@ public class GolemScr : MonoBehaviour
         startPosition = transform.position;
         player = GameObject.FindWithTag("Player");
         isJump = false;
+        timeAttack = 0;
     }
 
     void Update()
     {
+        if(timeAttack > 0) timeAttack -= Time.deltaTime;
         if(isJump){
             Ray ray = new Ray(transform.position, Vector3.down);
             RaycastHit hit;
@@ -45,8 +48,10 @@ public class GolemScr : MonoBehaviour
                 }
             }
         }
+    }
+
+    void FixedUpdate(){
         if(player != null && !isJump){
-            at.SetFloat("Wark", 0);
             float distanceStartToPlayer = Vector3.Distance(player.transform.position, startPosition);
             if(distanceStartToPlayer <= 50){
                 Vector3 dirMove = (player.transform.position - transform.position);
@@ -56,12 +61,18 @@ public class GolemScr : MonoBehaviour
                 if(distanceToPlayer > 40){
                     this.JumpTo(player.transform.position);
                 }
-                else if(distanceToPlayer > 2.5f){
+                else if(distanceToPlayer > 5f){
                     transform.position += dirMove * speed * Time.deltaTime;
-                    at.SetFloat("Wark", 1);
+                    at.SetFloat("Walk", 1);
                 }
                 else{
-                    this.attack();
+                    at.SetFloat("Walk", 0);
+                    if(timeAttack <= 0){
+                        at.SetTrigger("Hit");
+                        timeAttack = timeAttackDelay;
+                        this.attack();
+                    }
+                    
                 }
             }
             else{
@@ -74,7 +85,7 @@ public class GolemScr : MonoBehaviour
 
     public void JumpTo(Vector3 targetPosition)
     {
-        Vector3 direction = (targetPosition - transform.position) / 2;
+        Vector3 direction = (targetPosition - transform.position) / 8;
         Vector3 dirJump = (new Vector3(direction.x, jumpForce, direction.z));
         rd.AddForce(dirJump , ForceMode.Impulse);
         isJump = true;
