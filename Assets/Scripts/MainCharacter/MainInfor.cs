@@ -2,24 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Progress;
 
 [RequireComponent(typeof(MainVisual))]
 public class MainInfor : MonoBehaviour
 {
     private MainVisual mainVisual;
     private UnityEvent<MainState> changeStateEvent;
-    private UnityEvent<float, bool> increaseAttackSpeedEvent;
+    private UnityEvent<float, bool> skillQVisual;
 
     // basic infor
     private MainState state;
     private int attackType = 1;                     // main has 3 types of attacks
     private bool isAttack = false;
-    private float attackSpeed = 1.8f;
-
     private int rotateSpeed = 500;
-    private float moveSpeed = 5f;
+
+    private int health = 800;
+    private float attackSpeed = 1.8f;
+    private float runSpeed = 5f;
     private int basicDamage = 100;
-    //private int armor = 10;
+    private int armor = 10;
 
     // skill 1 infor
     private float timeSkill1 = 2f;                      // time of increase attack speed
@@ -35,14 +37,16 @@ public class MainInfor : MonoBehaviour
         mainVisual = GetComponent<MainVisual>();
 
         changeStateEvent = mainVisual.changeStateEvent;
-        increaseAttackSpeedEvent = mainVisual.increaseAttackSpeedEvent;
+        skillQVisual = mainVisual.skillQVisual;
 
         surfDistance = 5f;
-        surfSpeed = 10f;
+        surfSpeed = 15f;
     }
 
     private void Start() {
         state = MainState.Idle;
+
+        AddExtraFactor();
     }
 
     private void Update() {
@@ -86,8 +90,8 @@ public class MainInfor : MonoBehaviour
         return rotateSpeed;
     }
 
-    public float GetMoveSpeed() {
-        return moveSpeed;
+    public float GetRunSpeed() {
+        return runSpeed;
     }
 
     public int GetBasicAttackDamage(int i) {
@@ -108,8 +112,8 @@ public class MainInfor : MonoBehaviour
         increaseAttackDamageFactor *= factor;
     }
 
-    public IEnumerator IncreaseAttackSpeed() {
-        increaseAttackSpeedEvent?.Invoke(attackSpeed + attackSpeed * increaseAttackSpeedFactor, true);
+    public IEnumerator SkillQ() {
+        skillQVisual?.Invoke(attackSpeed + attackSpeed * increaseAttackSpeedFactor, true);
 
         while (timerSkill1 < timeSkill1) {
             timerSkill1 += Time.deltaTime;
@@ -117,6 +121,39 @@ public class MainInfor : MonoBehaviour
         }
 
         timerSkill1 = 0f;
-        increaseAttackSpeedEvent?.Invoke(attackSpeed, false);
+        skillQVisual?.Invoke(attackSpeed, false);
+    }
+
+    public void AddExtraFactor() {
+        int extraRunSpeed = 0, extraAttackSpeed = 0, extraAttackDamage = 0, extraArmor = 0;
+        MainInfor mainInfor = GameObject.FindGameObjectWithTag("Player").GetComponent<MainInfor>();
+        if (mainInfor != null && GameManager.Instance.itemIds.Count > 0) {
+            List<Item> items = GameManager.Instance.GetItems();
+            List<string> itemIds = GameManager.Instance.itemIds;
+            int j = 0;
+            for (int k = 0; k < items.Count && j < itemIds.Count; k++) {
+                if (itemIds[j] == null) {
+                    j++;
+                }
+                else if (items[k].Id.Equals(itemIds[j])) {
+                    extraRunSpeed += items[k].RunSpeed;
+                    extraAttackSpeed += items[k].AttackSpeed;
+                    extraAttackDamage += items[k].AttackDamage;
+                    extraArmor += items[k].Armor;
+                    j++;
+                }
+            }
+        }
+        mainVisual.IncreaseRunSpeed(extraRunSpeed / 100f);
+        runSpeed += extraRunSpeed / 100f * runSpeed;
+        mainVisual.IncreaseAttackSpeed(extraAttackSpeed / 100f * attackSpeed);
+        attackSpeed += extraAttackSpeed / 100f * attackSpeed;
+        basicDamage += extraAttackDamage;
+        armor += extraArmor;
+    }
+
+    public void TakeDamage(int damage) {
+        int currHealth = health;
+        health = Mathf.Clamp(Mathf.FloorToInt(health - damage * 100f / (100 + armor)), 0, currHealth);
     }
 }
