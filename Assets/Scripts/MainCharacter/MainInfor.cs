@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -61,8 +60,6 @@ public class MainInfor : MonoBehaviour
         surfSpeed = 15f;
         canUseSkillQ = canUseSkillE = true;
         health = maxHealth;
-
-        healthBar.fillAmount = 1f * health / maxHealth;
     }
 
     private void Start() {
@@ -70,6 +67,7 @@ public class MainInfor : MonoBehaviour
 
         AddExtraFactor();
         SetItems();
+        healthBar.fillAmount = 1;
     }
 
     private void Update() {
@@ -166,20 +164,21 @@ public class MainInfor : MonoBehaviour
         if (mainInfor != null && GameManager.Instance.itemIds.Count > 0) {
             List<Item> items = GameManager.Instance.GetItems();
             List<string> itemIds = GameManager.Instance.itemIds;
-            int j = 0;
-            for (int k = 0; k < items.Count && j < itemIds.Count; k++) {
-                if (itemIds[j] == null) {
-                    j++;
-                }
-                else if (items[k].Id.Equals(itemIds[j])) {
-                    extraRunSpeed += items[k].RunSpeed;
-                    extraAttackSpeed += items[k].AttackSpeed;
-                    extraAttackDamage += items[k].AttackDamage;
-                    extraArmor += items[k].Armor;
-                    j++;
+
+            for (int j = 0; j < itemIds.Count; j++) {
+                if (itemIds[j] != null) {
+                    for (int i = 0; i < items.Count; i++) {
+                        if (items[i].Id.Equals(itemIds[j])) {
+                            extraRunSpeed += items[i].RunSpeed;
+                            extraAttackSpeed += items[i].AttackSpeed;
+                            extraAttackDamage += items[i].AttackDamage;
+                            extraArmor += items[i].Armor;
+                        }
+                    }
                 }
             }
         }
+
         mainVisual.IncreaseRunSpeed(extraRunSpeed / 100f);
         runSpeed += extraRunSpeed / 100f * runSpeed;
         mainVisual.IncreaseAttackSpeed(extraAttackSpeed / 100f * attackSpeed);
@@ -232,6 +231,6 @@ public class MainInfor : MonoBehaviour
     }
 
     public void IsDie() {
-        UIPlayManager.Instance.SetActiveUI(ButtonType.Lose);
+        UIPlayManager.Instance.ShowLoseNotify();
     }
 }

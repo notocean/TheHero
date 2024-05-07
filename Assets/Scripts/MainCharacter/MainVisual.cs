@@ -20,10 +20,16 @@ public class MainVisual : MonoBehaviour
 
     [SerializeField] private Material increaseAttackSpeedMaterial;
 
+    // sound
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip slashAudio;
+    [SerializeField] private AudioClip skillEAudio;
+
     private void Awake() {
         mainInfor = GetComponent<MainInfor>();
 
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         changeStateEvent = new UnityEvent<MainState>();
         changeStateEvent.AddListener(ChangeStateHandle);
@@ -43,9 +49,11 @@ public class MainVisual : MonoBehaviour
                 animator.SetBool("IsRun", false);
                 animator.SetBool("IsSurf", false);
                 lightingTrailObj.GetComponent<VisualEffect>().Stop();
+                audioSource.Stop();
                 break;
             case MainState.Run:
                 animator.SetBool("IsRun", true);
+                audioSource.Play();
                 break;
             case MainState.Attack:
                 animator.SetInteger("Attack", mainInfor.GetAttackType());
@@ -54,6 +62,7 @@ public class MainVisual : MonoBehaviour
             case MainState.Surf:
                 animator.SetBool("IsSurf", true);
                 lightingTrailObj.GetComponent<VisualEffect>().Play();
+                audioSource.PlayOneShot(skillEAudio);
                 break;
             case MainState.Die:
                 animator.SetBool("Dying", true);
@@ -68,6 +77,7 @@ public class MainVisual : MonoBehaviour
     public void EnableSlash(int i) {
         basicAttack[i].SetDamage(mainInfor.GetBasicAttackDamage(i));
         slashObj[i].SetActive(true);
+        audioSource.PlayOneShot(slashAudio);
     }
 
     public void DisableSlash(int i) {
