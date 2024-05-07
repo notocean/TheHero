@@ -24,7 +24,8 @@ public class GolemScr : MonoBehaviour
         startPosition = transform.position;
         player = GameObject.FindWithTag("Player");
         isJump = false;
-        timeAttack = 0;
+        timeAttack = 0.5f;
+        timeAttack2 = 0.5f;
     }
 
     void Update()

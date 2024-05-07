@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnermiesInfor : MonoBehaviour
+public class Enemy_Infor : MonoBehaviour
 {
     [SerializeField] float health, maxHealth = 300.0f;
     [SerializeField] HealBarScr HealBar;

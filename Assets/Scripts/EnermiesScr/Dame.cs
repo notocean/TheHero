@@ -6,6 +6,8 @@ public class Dame : MonoBehaviour
 {
     [SerializeField] GameObject attackEffect2;
     [SerializeField] GameObject attackEffect1;
+    [SerializeField] AudioClip soundEffAttack;
+    [SerializeField] AudioSource attackAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,16 +21,18 @@ public class Dame : MonoBehaviour
     }
 
     public void setnotActiveAttackEffect1(){
-        attackEffect1.SetActive(false);
+        if(attackEffect1 != null) attackEffect1.SetActive(false);
     }
     public void setActiveAttackEffect1(){
-        attackEffect1.SetActive(true);
+        attackAudio.PlayOneShot(soundEffAttack,0.75f);
+        if(attackEffect1 != null) attackEffect1.SetActive(true);
     }
 
     public void setnotActiveAttackEffect2(){
-        attackEffect2.SetActive(false);
+        if(attackEffect2 != null) attackEffect2.SetActive(false);
     }
     public void setActiveAttackEffect2(){
-        attackEffect2.SetActive(true);
+        attackAudio.PlayOneShot(soundEffAttack,0.75f);
+        if(attackEffect2 != null) attackEffect2.SetActive(true);
     }
 }
