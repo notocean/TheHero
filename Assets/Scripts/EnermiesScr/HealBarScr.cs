@@ -7,16 +7,11 @@ using UnityEngine.UI;
 public class HealBarScr : MonoBehaviour
 {
     [SerializeField] Image HealBar;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        transform.rotation = Quaternion.LookRotation(- Camera.main.transform.forward);
     }
 
     public void UpHeathBar(float health, float maxHealth){

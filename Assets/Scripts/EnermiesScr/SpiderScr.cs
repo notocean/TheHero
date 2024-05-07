@@ -9,32 +9,17 @@ public class SpiderScr : MonoBehaviour
     Vector3 startPosition;
     GameObject player;
 
-    float speed = 4.0f;
+    float speed = 3.25f;
     float startTime;
     public float jumpForce = 10.0f;
     bool isJump;
     float timeAttackDelay = 2.5f, timeAttack;
     float rangeFindPlayer = 50f, rangeAttack = 5.0f;
-    [SerializeField] float health, maxHealth = 300.0f;
-    int level;
-    public void setLevel(int i){
-        this.level = i;
-    }
-    public void upHealth() {
-        this.maxHealth += maxHealth * 0.035f;
-    }
-    
-    // float dame = 200.0f;
-    public void upDame() {
-        this.maxHealth += maxHealth * 0.05f;
-    }
 
     void Start()
     {
         rd = GetComponent<Rigidbody>();
         at = GetComponent<Animator>();
-
-        this.health = maxHealth;
         startTime = Time.deltaTime;
         startPosition = transform.position;
         player = GameObject.FindWithTag("Player");
@@ -58,7 +43,7 @@ public class SpiderScr : MonoBehaviour
                 }
             }
         }
-        if(player != null && !isJump && this.health > 0){
+        if(player != null && !isJump){
             float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
             if(distanceToPlayer <= rangeAttack){
                 if(player.GetComponent<Rigidbody>().velocity.magnitude != 0){
@@ -66,18 +51,12 @@ public class SpiderScr : MonoBehaviour
                 }
                 else at.SetFloat("Run", 0);
                 if(timeAttack <= 0){
-                    this.attack();
                     at.SetTrigger("Hit");
                     timeAttack = timeAttackDelay;
                 }
             }
         }
         timeAttack -= Time.deltaTime;
-        if(this.health <= 0){
-            //goi phuong thuc tan cong
-            at.SetTrigger("Die");
-            Destroy(gameObject,5.0f);
-        }
     }
 
     void FixedUpdate(){
@@ -106,13 +85,5 @@ public class SpiderScr : MonoBehaviour
                 }
             }
         }
-    }
-
-    void attack(){
-        // player?.GetComponent<Player>()?.TakeDamage(Mathf.FloorToInt(dame));
-    }
-
-    public void takeDame(float dame){
-        this.health = Mathf.Clamp(health + dame, 0, maxHealth);
     }
 }

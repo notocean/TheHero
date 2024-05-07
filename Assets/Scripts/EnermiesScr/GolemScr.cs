@@ -5,37 +5,21 @@ using UnityEngine;
 public class GolemScr : MonoBehaviour
 {
     Rigidbody rd;
-    Animator at;
+    [SerializeField] Animator at;
     Vector3 startPosition;
     GameObject player;
 
-    float speed = 4.0f;
+    float speed = 3.5f;
     float startTime;
     public float jumpForce = 10.0f;
     bool isJump;
     float timeAttackDelay = 2.5f, timeAttack;
-    float timeAttackDelay2 = 3f, timeAttack2;
+    float timeAttackDelay2 = 4f, timeAttack2;
     float rangeFindPlayer = 50f, rangeJump = 30f, rangeAttack = 5.0f;
-    [SerializeField] float health, maxHealth = 300.0f;
-    int level;
-    public void setLevel(int i){
-        this.level = i;
-    }
-    public void upHealth() {
-        this.maxHealth += maxHealth * 0.035f;
-    }
-    
-    // float dame = 200.0f;
-    public void upDame() {
-        this.maxHealth += maxHealth * 0.05f;
-    }
 
     void Start()
     {
         rd = GetComponent<Rigidbody>();
-        at = GetComponent<Animator>();
-
-        this.health = maxHealth;
         startTime = Time.deltaTime;
         startPosition = transform.position;
         player = GameObject.FindWithTag("Player");
@@ -64,12 +48,10 @@ public class GolemScr : MonoBehaviour
             if(distanceToPlayer <= rangeAttack){
                 at.SetFloat("Walk", 0);
                 if(timeAttack <= 0){
-                    this.attack();
                     at.SetTrigger("Hit");
                     timeAttack = timeAttackDelay;
                 }
                 if(timeAttack2 <= 0){
-                    this.attack();
                     at.SetTrigger("Hit2");
                     timeAttack2 = timeAttackDelay2;
                 }
@@ -77,12 +59,6 @@ public class GolemScr : MonoBehaviour
         }
         timeAttack -= Time.deltaTime;
         timeAttack2 -= Time.deltaTime;
-        if(this.health <= 0){
-            at.SetTrigger("Rage");
-            //goi phuong thuc tan cong
-            at.SetTrigger("Die");
-            Destroy(gameObject,2.0f);
-        }
     }
 
     void FixedUpdate(){
@@ -123,13 +99,5 @@ public class GolemScr : MonoBehaviour
         rd.AddForce(dirJump, ForceMode.Impulse);
         at.SetTrigger("Jump");
         isJump = true;
-    }
-
-    void attack(){
-        // player?.GetComponent<Player>()?.TakeDamage(Mathf.FloorToInt(dame));
-    }
-
-    public void takeDame(float dame){
-        this.health = Mathf.Clamp(health + dame, 0, maxHealth);
     }
 }
