@@ -9,7 +9,7 @@ public class SpiderScr : MonoBehaviour
     Vector3 startPosition;
     GameObject player;
 
-    float speed = 5.0f;
+    float speed = 4.0f;
     float startTime;
     public float jumpForce = 10.0f;
     bool isJump;

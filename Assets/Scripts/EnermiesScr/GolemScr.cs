@@ -9,13 +9,13 @@ public class GolemScr : MonoBehaviour
     Vector3 startPosition;
     GameObject player;
 
-    float speed = 10.0f;
+    float speed = 4.0f;
     float startTime;
     public float jumpForce = 10.0f;
     bool isJump;
     float timeAttackDelay = 2.5f, timeAttack;
     float timeAttackDelay2 = 3f, timeAttack2;
-    float rangeFindPlayer = 50f, rangeJump = 40f, rangeAttack = 5.0f;
+    float rangeFindPlayer = 50f, rangeJump = 30f, rangeAttack = 5.0f;
     [SerializeField] float health, maxHealth = 300.0f;
     int level;
     public void setLevel(int i){
