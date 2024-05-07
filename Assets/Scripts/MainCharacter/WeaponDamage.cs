@@ -9,6 +9,10 @@ public class WeaponDamage : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip slashHitAudio;
 
+    private void Start() {
+        audioSource.volume = GameManager.Instance.soundFactor;
+    }
+
     public void SetDamage(int damage) {
         this.damage = damage;
     }

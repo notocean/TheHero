@@ -13,7 +13,6 @@ public class EnemyInforTest : MonoBehaviour
     }
 
     public void TakeDamage(float damage) {
-        Debug.Log(damage);
         damageNotifyOb.GetComponentInChildren<TMP_Text>().text = damage.ToString();
         Instantiate(damageNotifyOb, transform.position, Quaternion.identity);
         animator.SetTrigger("takedamage");

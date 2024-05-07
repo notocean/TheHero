@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] private DataScriptableObject _dataScriptableObject;
+    private AudioSource audioSource;
 
     public float soundFactor { get; private set; }
     public float musicFactor { get; private set; }
@@ -23,8 +24,11 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        LoadData();
         currentScore = 0;
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource?.Play();
+        LoadData();
     }
 
     public void LoadData() {
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour
         highestScore = _dataScriptableObject.highestScore;
 
         itemIds = _dataScriptableObject.itemIds;
+        audioSource.volume = musicFactor;
     }
 
     public void ChangeSoundFactor(float value) {
@@ -43,6 +48,7 @@ public class GameManager : MonoBehaviour
     public void ChangeMusicFactor(float value) {  
         musicFactor = value;
         _dataScriptableObject.musicFactor = musicFactor;
+        audioSource.volume = musicFactor;
     }
 
     public void SetSelectedItems() {

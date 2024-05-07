@@ -39,8 +39,8 @@ public class MainVisual : MonoBehaviour
         increaseAttackSpeedMaterial.DisableKeyword("_EMISSION");
     }
 
-    private void Update() {
-
+    private void Start() {
+        audioSource.volume = GameManager.Instance.soundFactor;
     }
 
     private void ChangeStateHandle(MainState state) {
@@ -77,7 +77,7 @@ public class MainVisual : MonoBehaviour
     public void EnableSlash(int i) {
         basicAttack[i].SetDamage(mainInfor.GetBasicAttackDamage(i));
         slashObj[i].SetActive(true);
-        audioSource.PlayOneShot(slashAudio);
+        audioSource.PlayOneShot(slashAudio, 0.7f);
     }
 
     public void DisableSlash(int i) {
