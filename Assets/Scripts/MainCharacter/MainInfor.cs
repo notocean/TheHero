@@ -22,6 +22,7 @@ public class MainInfor : MonoBehaviour
     [SerializeField] private GameObject itemsObj;
     [SerializeField] private Image cooldownQImage;
     [SerializeField] private Image cooldownEImage;
+    [SerializeField] private Image healthBar;
 
     // basic infor
     private MainState state;
@@ -29,7 +30,8 @@ public class MainInfor : MonoBehaviour
     private bool isAttack = false;
     private int rotateSpeed = 500;
 
-    private int health = 800;
+    private int maxHealth = 800;
+    private int health;
     private float attackSpeed = 1.8f;
     private float runSpeed = 5f;
     private int basicDamage = 100;
@@ -58,6 +60,9 @@ public class MainInfor : MonoBehaviour
         surfDistance = 5f;
         surfSpeed = 15f;
         canUseSkillQ = canUseSkillE = true;
+        health = maxHealth;
+
+        healthBar.fillAmount = 1f * health / maxHealth;
     }
 
     private void Start() {
@@ -218,6 +223,8 @@ public class MainInfor : MonoBehaviour
     public void TakeDamage(int damage) {
         int currHealth = health;
         health = Mathf.Clamp(Mathf.FloorToInt(health - damage * 100f / (100 + armor)), 0, currHealth);
+        healthBar.fillAmount = 1f * health / maxHealth;
+
         if (health == 0) {
             GetComponent<MainController>().mainInputAction.Disable();
             ChangeState(MainState.Die);
