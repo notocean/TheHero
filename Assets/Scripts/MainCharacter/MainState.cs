@@ -1,3 +1,3 @@
 public enum MainState {
-	Idle, Run, Attack, Surf
+	Idle, Run, Attack, Surf, Die
 }

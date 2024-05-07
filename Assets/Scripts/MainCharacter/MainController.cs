@@ -12,8 +12,7 @@ public class MainController : MonoBehaviour
 {
     private MainInfor mainInfor;
 
-    private MainInputAction mainInputAction;
-    private UnityEvent<MovementMode> changeMovementModeEvent;
+    public MainInputAction mainInputAction { get; private set; }
 
     [SerializeField] LayerMask layerMask;
     [SerializeField] GameObject clickedPointObject;
@@ -26,31 +25,26 @@ public class MainController : MonoBehaviour
     private bool isRotate = false;
     private int rotateSpeed;
     
-    private float moveSpeed;                       // movement
+    private float runSpeed;                       // movement
     private Vector3 moveDirection;
     private bool isMove = false;
     private bool isSurf = false;
     private float surfDis = 0f;
     private Vector3 surfDir = Vector3.zero;
+    private Vector3 surfTarget = Vector3.zero;
 
     private void Awake() {
         mainInfor = GetComponent<MainInfor>();
         rotateSpeed = mainInfor.GetRotateSpeed();
-        moveSpeed = mainInfor.GetMoveSpeed();
+        runSpeed = mainInfor.GetRunSpeed();
 
         mainInputAction = new MainInputAction();
         mainInputAction.Enable();
         mainInputAction.MainCharacter.MouseMovement.performed += Movement_performed;
         mainInputAction.MainCharacter.KeyMovement.performed += Movement_performed;
         mainInputAction.MainCharacter.Attack.performed += Attack_performed;
-        mainInputAction.MainCharacter.Skill1.performed += Skill1_performed;
-        mainInputAction.MainCharacter.Skill2.performed += Skill2_performed;
-        mainInputAction.MainCharacter.Skill3.performed += Skill3_performed;
-        mainInputAction.MainCharacter.Skill4.performed += Skill4_performed;
-
-        changeMovementModeEvent = new UnityEvent<MovementMode>();
-        changeMovementModeEvent.AddListener(ChangeMovementControllerMode);
-        GameSettings.Instance.SetChangeMovementModeEvent(changeMovementModeEvent);
+        mainInputAction.MainCharacter.SkillQ.performed += SkillQ_performed;
+        mainInputAction.MainCharacter.SkillE.performed += SkillE_performed;
 
         rigidbody = GetComponent<Rigidbody>();
 
@@ -73,29 +67,18 @@ public class MainController : MonoBehaviour
 
     private void FixedUpdate() {
         if (isMove) {
-            Vector3 targetPos = transform.position + (isRotate ? 0.5f * moveSpeed: moveSpeed) * moveDirection * Time.deltaTime;
+            Vector3 targetPos = transform.position + (isRotate ? 0.5f * runSpeed : runSpeed) * moveDirection * Time.deltaTime;
             rigidbody.MovePosition(targetPos);
         }
         if (isSurf) {
-            surfDis += (mainInfor.surfSpeed * surfDir * Time.deltaTime).magnitude;
-            Vector3 pos = transform.position + mainInfor.surfSpeed * surfDir * Time.deltaTime;
+            surfDis += mainInfor.surfSpeed * Time.deltaTime;
+            Vector3 pos = Vector3.Lerp(transform.position, surfTarget, surfDis / mainInfor.surfDistance);
             rigidbody.MovePosition(pos);
             if (surfDis >= mainInfor.surfDistance) {
                 isSurf = false;
                 mainInfor.ChangeState(MainState.Idle);
                 moveToPos = transform.position;
             }
-        }
-    }
-
-    private void ChangeMovementControllerMode(MovementMode mode) {
-        if (mode == MovementMode.Mouse) {
-            mainInputAction.MainCharacter.MouseMovement.Enable();
-            mainInputAction.MainCharacter.KeyMovement.Disable();
-        }
-        else {
-            mainInputAction.MainCharacter.MouseMovement.Disable();
-            mainInputAction.MainCharacter.KeyMovement.Enable();
         }
     }
 
@@ -161,17 +144,15 @@ public class MainController : MonoBehaviour
         moveToPos = transform.position;
     }
 
-    private void Skill1_performed(InputAction.CallbackContext obj) {
-        mainInfor.StopCoroutine(mainInfor.IncreaseAttackSpeed());
-        mainInfor.StartCoroutine(mainInfor.IncreaseAttackSpeed());
+    private void SkillQ_performed(InputAction.CallbackContext obj) {
+        if (mainInfor.canUseSkillQ) {
+            mainInfor.StartCoroutine(mainInfor.SkillQ());
+            mainInfor.StartCoroutine(mainInfor.CoolDownQ());
+        }
     }
 
-    private void Skill2_performed(InputAction.CallbackContext obj) {
-
-    }
-
-    private void Skill3_performed(InputAction.CallbackContext obj) {
-        if (!mainInfor.IsState(MainState.Attack)) {
+    private void SkillE_performed(InputAction.CallbackContext obj) {
+        if (!mainInfor.IsState(MainState.Attack) && mainInfor.canUseSkillE) {
             isRotate = false;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -182,29 +163,12 @@ public class MainController : MonoBehaviour
                 surfDis = 0f;
                 surfDir = transform.forward;
                 isSurf = true;
-                //StartCoroutine(Surf(transform.forward));
+                surfTarget = transform.position + mainInfor.surfDistance * surfDir.normalized;
             }
 
             DontMove();
             mainInfor.ChangeState(MainState.Surf);
+            mainInfor.StartCoroutine(mainInfor.CoolDownE());
         }
-    }
-
-    //private IEnumerator Surf(Vector3 surfDir) {
-    //    float dis = 0f;
-
-    //    while (dis < mainInfor.surfDistance) {
-    //        dis += (mainInfor.surfSpeed * surfDir * Time.deltaTime).magnitude;
-    //        Vector3 pos = rigidbody.position + mainInfor.surfSpeed * surfDir * Time.deltaTime;
-    //        Debug.Log(pos);
-    //        rigidbody.MovePosition(pos);
-    //        yield return null;
-    //    }
-
-    //    mainInfor.ChangeState(MainState.Idle);
-    //}
-
-    private void Skill4_performed(InputAction.CallbackContext obj) {
-
     }
 }

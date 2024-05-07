@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VFX;
 
 public class MainVisual : MonoBehaviour
 {
@@ -11,11 +12,11 @@ public class MainVisual : MonoBehaviour
     private Animator animator;
 
     [HideInInspector] public UnityEvent<MainState> changeStateEvent;
-    [HideInInspector] public UnityEvent<float, bool> increaseAttackSpeedEvent;
+    [HideInInspector] public UnityEvent<float, bool> skillQVisual;
 
     [SerializeField] private List<GameObject> slashObj;
-    [SerializeField] private GameObject slashObj_Skill1;
     [SerializeField] private List<WeaponDamage> basicAttack;
+    [SerializeField] private GameObject lightingTrailObj;
 
     [SerializeField] private Material increaseAttackSpeedMaterial;
 
@@ -26,8 +27,8 @@ public class MainVisual : MonoBehaviour
 
         changeStateEvent = new UnityEvent<MainState>();
         changeStateEvent.AddListener(ChangeStateHandle);
-        increaseAttackSpeedEvent = new UnityEvent<float, bool>();
-        increaseAttackSpeedEvent.AddListener(IncreaseAttackSpeedHandle);
+        skillQVisual = new UnityEvent<float, bool>();
+        skillQVisual.AddListener(SkillQVisual);
 
         increaseAttackSpeedMaterial.DisableKeyword("_EMISSION");
     }
@@ -41,6 +42,7 @@ public class MainVisual : MonoBehaviour
             case MainState.Idle:
                 animator.SetBool("IsRun", false);
                 animator.SetBool("IsSurf", false);
+                lightingTrailObj.GetComponent<VisualEffect>().Stop();
                 break;
             case MainState.Run:
                 animator.SetBool("IsRun", true);
@@ -51,6 +53,10 @@ public class MainVisual : MonoBehaviour
                 break;
             case MainState.Surf:
                 animator.SetBool("IsSurf", true);
+                lightingTrailObj.GetComponent<VisualEffect>().Play();
+                break;
+            case MainState.Die:
+                animator.SetBool("Dying", true);
                 break;
         }
     }
@@ -68,7 +74,7 @@ public class MainVisual : MonoBehaviour
         slashObj[i].SetActive(false);
     }
 
-    public void IncreaseAttackSpeedHandle(float attackSpeed, bool isEffect) {
+    public void SkillQVisual(float attackSpeed, bool isEffect) {
         animator.SetFloat("AttackSpeed", attackSpeed);
         if (isEffect) {
             increaseAttackSpeedMaterial.EnableKeyword("_EMISSION");
@@ -76,5 +82,13 @@ public class MainVisual : MonoBehaviour
         else {
             increaseAttackSpeedMaterial.DisableKeyword("_EMISSION");
         }
+    }
+
+    public void IncreaseRunSpeed(float value) {
+        animator.SetFloat("RunSpeed", animator.GetFloat("RunSpeed") + value);
+    }
+
+    public void IncreaseAttackSpeed(float value) {
+        animator.SetFloat("AttackSpeed", animator.GetFloat("AttackSpeed") + value);
     }
 }
