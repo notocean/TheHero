@@ -55,6 +55,9 @@ public class MainVisual : MonoBehaviour
                 animator.SetBool("IsSurf", true);
                 lightingTrailObj.GetComponent<VisualEffect>().Play();
                 break;
+            case MainState.Die:
+                animator.SetBool("Dying", true);
+                break;
         }
     }
 

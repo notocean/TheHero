@@ -1,3 +1,3 @@
 public enum ButtonType {
-    Start, Setting1, Quit, Fight, Pause, Resume, ReStart, Setting2, Exit
+    Start, Setting, Quit, Fight, Pause, Resume, ReStart, Exit, Lose
 }

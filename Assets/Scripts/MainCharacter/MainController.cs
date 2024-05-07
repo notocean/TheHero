@@ -12,7 +12,7 @@ public class MainController : MonoBehaviour
 {
     private MainInfor mainInfor;
 
-    private MainInputAction mainInputAction;
+    public MainInputAction mainInputAction { get; private set; }
 
     [SerializeField] LayerMask layerMask;
     [SerializeField] GameObject clickedPointObject;
@@ -71,7 +71,7 @@ public class MainController : MonoBehaviour
             rigidbody.MovePosition(targetPos);
         }
         if (isSurf) {
-            surfDis += mainInfor.surfSpeed * Time.fixedDeltaTime;
+            surfDis += mainInfor.surfSpeed * Time.deltaTime;
             Vector3 pos = Vector3.Lerp(transform.position, surfTarget, surfDis / mainInfor.surfDistance);
             rigidbody.MovePosition(pos);
             if (surfDis >= mainInfor.surfDistance) {
@@ -145,12 +145,14 @@ public class MainController : MonoBehaviour
     }
 
     private void SkillQ_performed(InputAction.CallbackContext obj) {
-        mainInfor.StopCoroutine(mainInfor.SkillQ());
-        mainInfor.StartCoroutine(mainInfor.SkillQ());
+        if (mainInfor.canUseSkillQ) {
+            mainInfor.StartCoroutine(mainInfor.SkillQ());
+            mainInfor.StartCoroutine(mainInfor.CoolDownQ());
+        }
     }
 
     private void SkillE_performed(InputAction.CallbackContext obj) {
-        if (!mainInfor.IsState(MainState.Attack)) {
+        if (!mainInfor.IsState(MainState.Attack) && mainInfor.canUseSkillE) {
             isRotate = false;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -166,6 +168,7 @@ public class MainController : MonoBehaviour
 
             DontMove();
             mainInfor.ChangeState(MainState.Surf);
+            mainInfor.StartCoroutine(mainInfor.CoolDownE());
         }
     }
 }

@@ -9,10 +9,10 @@ public class ButtonClicked : MonoBehaviour
     public void Clicked() {
         switch (buttonType) {
             case ButtonType.Start:
-                UIManager.Instance.SetActiveUI(ButtonType.Start);
+                UIStartManager.Instance.SetActiveUI(buttonType);
                 break;
-            case ButtonType.Setting1:
-                UIManager.Instance.SetActiveUI(ButtonType.Setting1);
+            case ButtonType.Setting:
+                UIStartManager.Instance.SetActiveUI(buttonType);
                 break;
             case ButtonType.Quit:
                 GameManager.Instance.Quit();
@@ -22,19 +22,22 @@ public class ButtonClicked : MonoBehaviour
                 GameManager.Instance.ChangeScene(1);
                 break;
             case ButtonType.Pause:
-
+                GameManager.Instance.PauseGame();
+                UIPlayManager.Instance.SetActiveUI(buttonType);
                 break;
             case ButtonType.Resume:
-
+                GameManager.Instance.ResumeGame();
+                UIPlayManager.Instance.SetActiveUI(buttonType);
                 break;
             case ButtonType.ReStart:
-
-                break;
-            case ButtonType.Setting2:
-
+                GameManager.Instance.ResumeGame();
+                GameObject.FindGameObjectWithTag("Player").GetComponent<MainController>().mainInputAction.Dispose();
+                GameManager.Instance.ChangeScene(1);
                 break;
             case ButtonType.Exit:
-
+                GameManager.Instance.ResumeGame();
+                GameObject.FindGameObjectWithTag("Player").GetComponent<MainController>().mainInputAction.Dispose();
+                GameManager.Instance.ChangeScene(0);
                 break;
         }
     }

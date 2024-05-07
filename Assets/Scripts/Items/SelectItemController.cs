@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class SelectItemController : MonoBehaviour
 {
@@ -52,5 +53,6 @@ public class SelectItemController : MonoBehaviour
 
     public void GetItem(SelectedItem selectedItem) {
         selectedItem.GetComponent<SelectedItem>().SetItem(selectingItem);
+        RemoveSelectingItem(selectingItem);
     }
 }

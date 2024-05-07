@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundFactor: 1
   musicFactor: 1
-  maxPoint: 0
+  highestScore: 200
+  itemIds:
+  - Item07
+  - 
+  - 

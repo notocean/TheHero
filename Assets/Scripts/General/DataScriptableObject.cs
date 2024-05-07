@@ -5,7 +5,7 @@ using UnityEngine;
 public class DataScriptableObject : ScriptableObject {
     public float soundFactor;
     public float musicFactor;
-    public int maxPoint;
+    public int highestScore;
 
     public List<string> itemIds;
 }

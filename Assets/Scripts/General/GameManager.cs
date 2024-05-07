@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 
     public float soundFactor { get; private set; }
     public float musicFactor { get; private set; }
-    public int maxPoint { get; private set; }
+    public int highestScore { get; private set; }
+    public int currentScore { get; private set; }
 
     [SerializeField] private List<Item> items;
     public List<string> itemIds { get; private set; }
@@ -23,12 +24,13 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         LoadData();
+        currentScore = 0;
     }
 
     public void LoadData() {
         soundFactor = _dataScriptableObject.soundFactor;
         musicFactor = _dataScriptableObject.musicFactor;
-        maxPoint = _dataScriptableObject.maxPoint;
+        highestScore = _dataScriptableObject.highestScore;
 
         itemIds = _dataScriptableObject.itemIds;
     }
@@ -44,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void SetSelectedItems() {
-        itemIds = UIManager.Instance.GetItemIds();
+        itemIds = UIStartManager.Instance.GetItemIds();
         _dataScriptableObject.itemIds = itemIds;
     }
 
@@ -52,8 +54,25 @@ public class GameManager : MonoBehaviour
         return items;
     }
 
+    public void AddScore() {
+        currentScore++;
+    }
+
     public void ChangeScene(int i) {
+        if (i == 0) {
+            currentScore = 0;
+        }
         SceneManager.LoadScene(i);
+    }
+
+    public void PauseGame() {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MainController>().mainInputAction.Disable();
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame() {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MainController>().mainInputAction.Enable();
+        Time.timeScale = 1f;
     }
 
     public void Quit() {

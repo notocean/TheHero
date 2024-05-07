@@ -10,6 +10,9 @@ public class SelectedItem : MonoBehaviour
 
     public void Clicked() {
         SelectItemController.Instance.GetItem(this);
+        if (item != null) {
+            SelectItemController.Instance.ShowInfor(item);
+        }
     }
 
     public void SetItem(Item item) {
@@ -17,9 +20,5 @@ public class SelectedItem : MonoBehaviour
             this.item = item;
             image.sprite = item.Image.sprite;
         }
-        if (this.item != null) {
-            SelectItemController.Instance.ShowInfor(this.item);
-        }
-        SelectItemController.Instance.RemoveSelectingItem(item);
     }
 }
