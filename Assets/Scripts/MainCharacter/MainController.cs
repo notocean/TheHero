@@ -15,6 +15,7 @@ public class MainController : MonoBehaviour
     public MainInputAction mainInputAction { get; private set; }
 
     [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask wallLayerMask;
     [SerializeField] GameObject clickedPointObject;
 
     private new Rigidbody rigidbody;
@@ -66,20 +67,30 @@ public class MainController : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (isMove) {
+        if (isMove && CanMove()) {
             Vector3 targetPos = transform.position + (isRotate ? 0.5f * runSpeed : runSpeed) * moveDirection * Time.deltaTime;
             rigidbody.MovePosition(targetPos);
         }
         if (isSurf) {
             surfDis += mainInfor.surfSpeed * Time.deltaTime;
             Vector3 pos = Vector3.Lerp(transform.position, surfTarget, surfDis / mainInfor.surfDistance);
-            rigidbody.MovePosition(pos);
+            if (CanMove())
+                rigidbody.MovePosition(pos);
             if (surfDis >= mainInfor.surfDistance) {
                 isSurf = false;
                 mainInfor.ChangeState(MainState.Idle);
                 moveToPos = transform.position;
             }
         }
+    }
+
+    private bool CanMove() {
+        bool canMove = true;
+        Ray ray = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(ray, 0.5f, wallLayerMask)) {
+            canMove = false;
+        }
+        return canMove;
     }
 
     private void Movement_performed(InputAction.CallbackContext obj) {

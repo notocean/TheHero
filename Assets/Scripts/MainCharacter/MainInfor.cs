@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -22,6 +21,7 @@ public class MainInfor : MonoBehaviour
     [SerializeField] private GameObject itemsObj;
     [SerializeField] private Image cooldownQImage;
     [SerializeField] private Image cooldownEImage;
+    [SerializeField] private Image healthBar;
 
     // basic infor
     private MainState state;
@@ -29,7 +29,8 @@ public class MainInfor : MonoBehaviour
     private bool isAttack = false;
     private int rotateSpeed = 500;
 
-    private int health = 800;
+    private int maxHealth = 800;
+    private int health;
     private float attackSpeed = 1.8f;
     private float runSpeed = 5f;
     private int basicDamage = 100;
@@ -58,6 +59,7 @@ public class MainInfor : MonoBehaviour
         surfDistance = 5f;
         surfSpeed = 15f;
         canUseSkillQ = canUseSkillE = true;
+        health = maxHealth;
     }
 
     private void Start() {
@@ -65,6 +67,7 @@ public class MainInfor : MonoBehaviour
 
         AddExtraFactor();
         SetItems();
+        healthBar.fillAmount = 1;
     }
 
     private void Update() {
@@ -161,20 +164,21 @@ public class MainInfor : MonoBehaviour
         if (mainInfor != null && GameManager.Instance.itemIds.Count > 0) {
             List<Item> items = GameManager.Instance.GetItems();
             List<string> itemIds = GameManager.Instance.itemIds;
-            int j = 0;
-            for (int k = 0; k < items.Count && j < itemIds.Count; k++) {
-                if (itemIds[j] == null) {
-                    j++;
-                }
-                else if (items[k].Id.Equals(itemIds[j])) {
-                    extraRunSpeed += items[k].RunSpeed;
-                    extraAttackSpeed += items[k].AttackSpeed;
-                    extraAttackDamage += items[k].AttackDamage;
-                    extraArmor += items[k].Armor;
-                    j++;
+
+            for (int j = 0; j < itemIds.Count; j++) {
+                if (itemIds[j] != null) {
+                    for (int i = 0; i < items.Count; i++) {
+                        if (items[i].Id.Equals(itemIds[j])) {
+                            extraRunSpeed += items[i].RunSpeed;
+                            extraAttackSpeed += items[i].AttackSpeed;
+                            extraAttackDamage += items[i].AttackDamage;
+                            extraArmor += items[i].Armor;
+                        }
+                    }
                 }
             }
         }
+
         mainVisual.IncreaseRunSpeed(extraRunSpeed / 100f);
         runSpeed += extraRunSpeed / 100f * runSpeed;
         mainVisual.IncreaseAttackSpeed(extraAttackSpeed / 100f * attackSpeed);
@@ -218,6 +222,8 @@ public class MainInfor : MonoBehaviour
     public void TakeDamage(int damage) {
         int currHealth = health;
         health = Mathf.Clamp(Mathf.FloorToInt(health - damage * 100f / (100 + armor)), 0, currHealth);
+        healthBar.fillAmount = 1f * health / maxHealth;
+
         if (health == 0) {
             GetComponent<MainController>().mainInputAction.Disable();
             ChangeState(MainState.Die);
@@ -225,6 +231,6 @@ public class MainInfor : MonoBehaviour
     }
 
     public void IsDie() {
-        UIPlayManager.Instance.SetActiveUI(ButtonType.Lose);
+        UIPlayManager.Instance.ShowLoseNotify();
     }
 }
