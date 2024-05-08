@@ -24,7 +24,7 @@ public class WeaponDamage : MonoBehaviour
             Vector3 pos = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
             Instantiate(hitSlashObj, pos, hitSlashObj.transform.rotation);
 
-            audioSource.PlayOneShot(slashHitAudio, 0.8f);
+            audioSource.PlayOneShot(slashHitAudio, 0.8f * GameManager.Instance.soundFactor);
         }
     }
 }
