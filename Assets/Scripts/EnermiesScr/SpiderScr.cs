@@ -11,7 +11,6 @@ public class SpiderScr : MonoBehaviour
 
     float speed = 3.25f;
     float startTime;
-    public float jumpForce = 10.0f;
     bool isJump;
     float timeAttackDelay = 2.5f, timeAttack;
     float rangeFindPlayer = 50f, rangeAttack = 10.0f;
