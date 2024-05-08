@@ -20,5 +20,6 @@ public class SelectedItem : MonoBehaviour
             this.item = item;
             image.sprite = item.Image.sprite;
         }
+        GameManager.Instance.SetSelectedItems();
     }
 }

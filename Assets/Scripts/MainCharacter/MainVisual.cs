@@ -62,7 +62,7 @@ public class MainVisual : MonoBehaviour
             case MainState.Surf:
                 animator.SetBool("IsSurf", true);
                 lightingTrailObj.GetComponent<VisualEffect>().Play();
-                audioSource.PlayOneShot(skillEAudio);
+                audioSource.PlayOneShot(skillEAudio, GameManager.Instance.soundFactor);
                 break;
             case MainState.Die:
                 animator.SetBool("Dying", true);
@@ -77,7 +77,7 @@ public class MainVisual : MonoBehaviour
     public void EnableSlash(int i) {
         basicAttack[i].SetDamage(mainInfor.GetBasicAttackDamage(i));
         slashObj[i].SetActive(true);
-        audioSource.PlayOneShot(slashAudio, 0.7f);
+        audioSource.PlayOneShot(slashAudio, 0.7f * GameManager.Instance.soundFactor);
     }
 
     public void DisableSlash(int i) {
