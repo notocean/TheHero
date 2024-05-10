@@ -3262,7 +3262,7 @@ PrefabInstance:
         type: 3}
       propertyPath: slashHitAudio
       value: 
-      objectReference: {fileID: 8300000, guid: 3cb3f08ed43db06478a5f266a3a3964e, type: 3}
+      objectReference: {fileID: 8300000, guid: 0a384e9cadb03364b84f61b2245c6b3a, type: 3}
     - target: {fileID: 2157198699729640803, guid: 3c9271bdd166b5e4ba9653c97e6ae070,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3524,7 +3524,7 @@ PrefabInstance:
         type: 3}
       propertyPath: slashHitAudio
       value: 
-      objectReference: {fileID: 8300000, guid: 3cb3f08ed43db06478a5f266a3a3964e, type: 3}
+      objectReference: {fileID: 8300000, guid: 0a384e9cadb03364b84f61b2245c6b3a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3632,7 +3632,7 @@ PrefabInstance:
         type: 3}
       propertyPath: slashHitAudio
       value: 
-      objectReference: {fileID: 8300000, guid: 3cb3f08ed43db06478a5f266a3a3964e, type: 3}
+      objectReference: {fileID: 8300000, guid: 0a384e9cadb03364b84f61b2245c6b3a, type: 3}
     - target: {fileID: 8314185456849450648, guid: 882f801a7580b3342951a6b0f1fbb701,
         type: 3}
       propertyPath: m_Name
@@ -4809,8 +4809,8 @@ MonoBehaviour:
   lightingTrailObj: {fileID: 6608222143913296773}
   increaseAttackSpeedMaterial: {fileID: 2100000, guid: a5e078c3463264649a431b013e3aff67,
     type: 2}
-  slashAudio: {fileID: 8300000, guid: cf4035dbf2ef6a149a229b94736ec30e, type: 3}
-  skillEAudio: {fileID: 8300000, guid: 8f4a641cbb0e14c40b950e75119efbc8, type: 3}
+  slashAudio: {fileID: 8300000, guid: 7b549727b96389148bc14a6c1a4da57a, type: 3}
+  skillEAudio: {fileID: 8300000, guid: 242519acf606f51469bbd7149027f477, type: 3}
 --- !u!114 &5361976074119367933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4864,7 +4864,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d2aa8d57f6a81bf4291d3e33643aac97, type: 3}
+  m_audioClip: {fileID: 8300000, guid: aa965d4d900dcbc449a14aea61a14ce6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

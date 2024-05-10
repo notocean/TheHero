@@ -11,6 +11,7 @@ public class UIPlayManager : MonoBehaviour
     [SerializeField] private GameObject loseFrameObj;
     [SerializeField] private TMP_Text score;
     [SerializeField] private TMP_Text highestScore;
+    [SerializeField] private TMP_Text gold;
 
     private void Awake() {
         if (Instance == null) {
@@ -42,5 +43,9 @@ public class UIPlayManager : MonoBehaviour
         highestScore.text = GameManager.Instance.highestScore.ToString();
         GameManager.Instance.PauseGame();
         loseFrameObj.SetActive(true);
+    }
+
+    public void ShowGold(int value) {
+        gold.text = value.ToString();
     }
 }

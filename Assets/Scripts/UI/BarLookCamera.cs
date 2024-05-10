@@ -11,6 +11,6 @@ public class BarLookCamera : MonoBehaviour
     }
 
     private void LateUpdate() {
-        transform.rotation = Quaternion.LookRotation(_camera.transform.forward);
+        transform.rotation = Quaternion.LookRotation(-_camera.transform.forward);
     }
 }

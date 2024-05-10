@@ -9,22 +9,23 @@ public class WeaponDamage : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip slashHitAudio;
 
-    private void Start() {
-        audioSource.volume = GameManager.Instance.soundFactor;
-    }
-
     public void SetDamage(int damage) {
         this.damage = damage;
     }
 
     private void OnTriggerEnter(Collider other) {
-        EnemyInforTest enemyInfor = other.GetComponent<EnemyInforTest>();
+        Enemy_Infor enemy_Infor = other.GetComponent<Enemy_Infor>();
+        Vector3 pos = other.ClosestPoint(transform.position);
+        if (enemy_Infor != null) {
+            enemy_Infor.TakeDamage(damage);
+            audioSource.PlayOneShot(slashHitAudio);
+            Instantiate(hitSlashObj, pos, hitSlashObj.transform.rotation);
+        }
+        EnemyInfor enemyInfor = other.GetComponent<EnemyInfor>();
         if (enemyInfor != null) {
             enemyInfor.TakeDamage(damage);
-            Vector3 pos = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+            audioSource.PlayOneShot(slashHitAudio);
             Instantiate(hitSlashObj, pos, hitSlashObj.transform.rotation);
-
-            audioSource.PlayOneShot(slashHitAudio, 0.8f * GameManager.Instance.soundFactor);
         }
     }
 }

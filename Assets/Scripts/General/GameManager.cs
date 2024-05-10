@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Item> items;
     public List<string> itemIds { get; private set; }
 
+    public bool IsPlaying { get; set; }
+
     private void Awake() {
         if (Instance == null) {
             Instance = this;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource?.Play();
         LoadData();
+        IsPlaying = false;
     }
 
     public void LoadData() {
@@ -62,11 +65,15 @@ public class GameManager : MonoBehaviour
 
     public void AddScore() {
         currentScore++;
+        UIPlayManager.Instance.ShowGold(currentScore);
     }
 
     public void ChangeScene(int i) {
         if (i == 0) {
             currentScore = 0;
+        }
+        else {
+            IsPlaying = true;
         }
         SceneManager.LoadScene(i);
     }

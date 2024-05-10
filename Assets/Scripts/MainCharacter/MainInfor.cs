@@ -70,10 +70,6 @@ public class MainInfor : MonoBehaviour
         healthBar.fillAmount = 1;
     }
 
-    private void Update() {
-
-    }
-
     public void ChangeState(MainState state) {
         if (this.state != state) {
             this.state = state;
@@ -223,10 +219,10 @@ public class MainInfor : MonoBehaviour
         int currHealth = health;
         health = Mathf.Clamp(Mathf.FloorToInt(health - damage * 100f / (100 + armor)), 0, currHealth);
         healthBar.fillAmount = 1f * health / maxHealth;
-
         if (health == 0) {
             GetComponent<MainController>().mainInputAction.Disable();
             ChangeState(MainState.Die);
+            GameManager.Instance.IsPlaying = false;
         }
     }
 

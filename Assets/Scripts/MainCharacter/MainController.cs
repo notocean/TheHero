@@ -164,6 +164,7 @@ public class MainController : MonoBehaviour
 
     private void SkillE_performed(InputAction.CallbackContext obj) {
         if (!mainInfor.IsState(MainState.Attack) && mainInfor.canUseSkillE) {
+            mainInfor.StartCoroutine(mainInfor.CoolDownE());
             isRotate = false;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -179,7 +180,6 @@ public class MainController : MonoBehaviour
 
             DontMove();
             mainInfor.ChangeState(MainState.Surf);
-            mainInfor.StartCoroutine(mainInfor.CoolDownE());
         }
     }
 }
