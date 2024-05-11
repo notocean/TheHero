@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(MainInfor))]
 public class MainController : MonoBehaviour
 {
-    [SerializeField] private MainInfor mainInfor;
+    private MainInfor mainInfor;
 
     public MainInputAction mainInputAction { get; private set; }
 
@@ -35,6 +35,7 @@ public class MainController : MonoBehaviour
     private Vector3 surfTarget = Vector3.zero;
 
     private void Awake() {
+        mainInfor = GetComponent<MainInfor>();
         rotateSpeed = mainInfor.GetRotateSpeed();
         runSpeed = mainInfor.GetRunSpeed();
 

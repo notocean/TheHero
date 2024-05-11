@@ -7,12 +7,12 @@ using UnityEngine.VFX;
 public class MainVisual : MonoBehaviour
 {
     // reference to some script
-    [SerializeField] private MainInfor mainInfor;
+    private MainInfor mainInfor;
 
     private Animator animator;
 
-    [HideInInspector] public UnityEvent<MainState> changeStateEvent;
-    [HideInInspector] public UnityEvent<float, bool> skillQVisual;
+    [HideInInspector] public UnityEvent<MainState> changeStateEvent = new UnityEvent<MainState>();
+    [HideInInspector] public UnityEvent<float, bool> skillQVisual = new UnityEvent<float, bool>();
 
     [SerializeField] private List<GameObject> slashObj;
     [SerializeField] private List<WeaponDamage> basicAttack;
@@ -26,12 +26,12 @@ public class MainVisual : MonoBehaviour
     [SerializeField] private AudioClip skillEAudio;
 
     private void Awake() {
+        mainInfor = GetComponent<MainInfor>();
+
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        changeStateEvent = new UnityEvent<MainState>();
         changeStateEvent.AddListener(ChangeStateHandle);
-        skillQVisual = new UnityEvent<float, bool>();
         skillQVisual.AddListener(SkillQVisual);
 
         increaseAttackSpeedMaterial.DisableKeyword("_EMISSION");
