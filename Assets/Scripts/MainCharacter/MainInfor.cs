@@ -5,12 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 [RequireComponent(typeof(MainVisual))]
 public class MainInfor : MonoBehaviour
 {
-    private MainVisual mainVisual;
+    [SerializeField] private MainVisual mainVisual;
     private UnityEvent<MainState> changeStateEvent;
     private UnityEvent<float, bool> skillQVisual;
 
@@ -51,8 +50,6 @@ public class MainInfor : MonoBehaviour
     public bool canUseSkillE { get; private set; }
 
     private void Awake() {
-        mainVisual = GetComponent<MainVisual>();
-
         changeStateEvent = mainVisual.changeStateEvent;
         skillQVisual = mainVisual.skillQVisual;
 

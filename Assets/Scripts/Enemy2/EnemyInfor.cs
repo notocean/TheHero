@@ -98,6 +98,7 @@ public class EnemyInfor : MonoBehaviour
 
     public void PlaySFX(int sfxToPlay)
     {
+        sfx[sfxToPlay].volume = GameManager.Instance.soundFactor;
         sfx[sfxToPlay].Play();
     }
 

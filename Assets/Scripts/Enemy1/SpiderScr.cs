@@ -53,13 +53,11 @@ public class SpiderScr : MonoBehaviour
     void AttackHandle(bool attack) {
         if (attack) {
             isAttack = true;
-            at.SetBool("Idle", true);
             at.SetBool("Run", false);
             timeAttack = timeAttackDelay;
         }
         else {
             isAttack = false;
-            at.SetBool("Idle", false);
         }
     }
 }

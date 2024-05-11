@@ -16,7 +16,7 @@ public class Dame : MonoBehaviour
     }
     public void setActiveAttackEffect1(){
         if (soundEffAttack != null)
-            attackAudio.PlayOneShot(soundEffAttack,0.75f);
+            attackAudio.PlayOneShot(soundEffAttack,0.75f * GameManager.Instance.soundFactor);
         if(attackEffect1 != null) 
             attackEffect1.SetActive(true);
     }
@@ -27,7 +27,7 @@ public class Dame : MonoBehaviour
     }
     public void setActiveAttackEffect2() {
         if (soundEffAttack != null)
-            attackAudio.PlayOneShot(soundEffAttack,0.75f);
+            attackAudio.PlayOneShot(soundEffAttack,0.75f * GameManager.Instance.soundFactor);
         if(attackEffect2 != null) 
             attackEffect2.SetActive(true);
     }

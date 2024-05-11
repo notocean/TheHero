@@ -4772,6 +4772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765990e87282f4f4cb8488876a9fd0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainVisual: {fileID: 4545488245866687739}
   runSpeedText: {fileID: 812966628138409175}
   attackSpeedText: {fileID: 56476993414922288}
   attackDamageText: {fileID: 8702164250564414079}
@@ -4792,6 +4793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2b72d4845f3eb4baf4398c6c35b98d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInfor: {fileID: 3101879370834510093}
   changeStateEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -4823,6 +4825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa2c8b6e6adbff44a74af7143a4e552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInfor: {fileID: 3101879370834510093}
   layerMask:
     serializedVersion: 2
     m_Bits: 64

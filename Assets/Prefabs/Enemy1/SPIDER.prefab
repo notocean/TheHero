@@ -525,7 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackEffect2: {fileID: 8910287254470056572}
   attackEffect1: {fileID: 0}
-  soundEffAttack: {fileID: 8300000, guid: 680344906de776840ad926f3262ed715, type: 3}
+  soundEffAttack: {fileID: 8300000, guid: 9296885e96d35574da5db2e84609af3d, type: 3}
   attackAudio: {fileID: 8712655476470909801}
   attackDetect: {fileID: 168973203581639772}
 --- !u!82 &8712655476470909801

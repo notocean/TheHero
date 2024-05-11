@@ -22,7 +22,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake() {
         if (Instance == null) {
-            Instance = this;
+            Instance = FindObjectOfType<GameManager>();
+            if (Instance == null) {
+                GameObject obj = new GameObject("GameManager");
+                Instance = obj.AddComponent<GameManager>();
+            }
+        }
+        else {
+            Destroy(gameObject);
+            return;
         }
         DontDestroyOnLoad(gameObject);
 
@@ -68,11 +76,16 @@ public class GameManager : MonoBehaviour
         UIPlayManager.Instance.ShowGold(currentScore);
     }
 
-    public void ChangeScene(int i) {
-        if (i == 0) {
-            currentScore = 0;
+    public void ChangeHighestScore() {
+        if (currentScore > highestScore) {
+            highestScore = currentScore;
+            _dataScriptableObject.highestScore = highestScore;
         }
-        else {
+    }
+
+    public void ChangeScene(int i) {
+        currentScore = 0;
+        if (i == 1) {
             IsPlaying = true;
         }
         SceneManager.LoadScene(i);

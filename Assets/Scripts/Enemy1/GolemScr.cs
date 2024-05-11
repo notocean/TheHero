@@ -62,7 +62,6 @@ public class GolemScr : MonoBehaviour
     void AttackHandle(bool attack) {
         if (attack) {
             isAttack = true;
-            at.SetBool("Idle", false);
             at.SetBool("Walk", false);
             if (attackType == 0) {
                 timerAttack = timeAttackDelay;
@@ -74,7 +73,6 @@ public class GolemScr : MonoBehaviour
         }
         else {
             isAttack = false;
-            at.SetBool("Idle", true);
         } 
     }
 }

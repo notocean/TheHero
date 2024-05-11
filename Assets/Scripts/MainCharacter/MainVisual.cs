@@ -7,7 +7,7 @@ using UnityEngine.VFX;
 public class MainVisual : MonoBehaviour
 {
     // reference to some script
-    private MainInfor mainInfor;
+    [SerializeField] private MainInfor mainInfor;
 
     private Animator animator;
 
@@ -26,8 +26,6 @@ public class MainVisual : MonoBehaviour
     [SerializeField] private AudioClip skillEAudio;
 
     private void Awake() {
-        mainInfor = GetComponent<MainInfor>();
-
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 

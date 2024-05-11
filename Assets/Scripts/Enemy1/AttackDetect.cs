@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class AttackDetect : MonoBehaviour
 {
     public UnityEvent<bool> attackEvent = new UnityEvent<bool>();
-    public bool CanAttack { get; private set; }
+    public bool CanAttack { get; set; }
 
     private void Awake() {
         CanAttack = true;

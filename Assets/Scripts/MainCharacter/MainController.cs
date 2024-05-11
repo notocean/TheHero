@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(MainInfor))]
 public class MainController : MonoBehaviour
 {
-    private MainInfor mainInfor;
+    [SerializeField] private MainInfor mainInfor;
 
     public MainInputAction mainInputAction { get; private set; }
 
@@ -18,7 +18,7 @@ public class MainController : MonoBehaviour
     [SerializeField] LayerMask wallLayerMask;
     [SerializeField] GameObject clickedPointObject;
 
-    private new Rigidbody rigidbody;
+    private Rigidbody rigidbd;
 
     private Vector3 moveToPos;                          // the main character needs to move to it
     private Quaternion currentQuaternion;               // rotation
@@ -35,7 +35,6 @@ public class MainController : MonoBehaviour
     private Vector3 surfTarget = Vector3.zero;
 
     private void Awake() {
-        mainInfor = GetComponent<MainInfor>();
         rotateSpeed = mainInfor.GetRotateSpeed();
         runSpeed = mainInfor.GetRunSpeed();
 
@@ -47,7 +46,7 @@ public class MainController : MonoBehaviour
         mainInputAction.MainCharacter.SkillQ.performed += SkillQ_performed;
         mainInputAction.MainCharacter.SkillE.performed += SkillE_performed;
 
-        rigidbody = GetComponent<Rigidbody>();
+        rigidbd = GetComponent<Rigidbody>();
 
         moveToPos = transform.position;
     }
@@ -69,13 +68,13 @@ public class MainController : MonoBehaviour
     private void FixedUpdate() {
         if (isMove && CanMove()) {
             Vector3 targetPos = transform.position + (isRotate ? 0.5f * runSpeed : runSpeed) * moveDirection * Time.deltaTime;
-            rigidbody.MovePosition(targetPos);
+            rigidbd.MovePosition(targetPos);
         }
         if (isSurf) {
             surfDis += mainInfor.surfSpeed * Time.deltaTime;
             Vector3 pos = Vector3.Lerp(transform.position, surfTarget, surfDis / mainInfor.surfDistance);
             if (CanMove())
-                rigidbody.MovePosition(pos);
+                rigidbd.MovePosition(pos);
             if (surfDis >= mainInfor.surfDistance) {
                 isSurf = false;
                 mainInfor.ChangeState(MainState.Idle);
