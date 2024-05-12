@@ -19,14 +19,14 @@ public class EnemySpawnController : MonoBehaviour
 
     private void Start() {
         for (int i = 0; i < maxEnemyCount; i++) {
-            int enemyType = Random.Range(0, enemyPrefabs.Count - 1);
+            int enemyType = Random.Range(0, enemyPrefabs.Count);
             Instantiate(enemyPrefabs[enemyType], spawnPos[i].position, enemyPrefabs[enemyType].transform.rotation);
         }
     }
 
     public void SpawnEnemy() {
-        int enemyType = Random.Range(0, enemyPrefabs.Count - 1);
-        int enemyPos = Random.Range(0, spawnPos.Count - 1);
+        int enemyType = Random.Range(0, enemyPrefabs.Count);
+        int enemyPos = Random.Range(0, spawnPos.Count);
         Instantiate(enemyPrefabs[enemyType], spawnPos[enemyPos].position, enemyPrefabs[enemyType].transform.rotation);
     }
 }
