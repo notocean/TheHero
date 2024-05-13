@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadData() {
+        _dataScriptableObject.LoadFromFile();
         soundFactor = _dataScriptableObject.soundFactor;
         musicFactor = _dataScriptableObject.musicFactor;
         highestScore = _dataScriptableObject.highestScore;
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
     public void SetSelectedItems() {
         itemIds = UIStartManager.Instance.GetItemIds();
         _dataScriptableObject.itemIds = itemIds;
+        _dataScriptableObject.SaveToFile();
     }
 
     public List<Item> GetItems() {
@@ -73,14 +75,12 @@ public class GameManager : MonoBehaviour
 
     public void AddScore() {
         currentScore++;
-        UIPlayManager.Instance.ShowGold(currentScore);
-    }
-
-    public void ChangeHighestScore() {
         if (currentScore > highestScore) {
             highestScore = currentScore;
             _dataScriptableObject.highestScore = highestScore;
         }
+        UIPlayManager.Instance.ShowGold(currentScore);
+        _dataScriptableObject.SaveToFile();
     }
 
     public void ChangeScene(int i) {

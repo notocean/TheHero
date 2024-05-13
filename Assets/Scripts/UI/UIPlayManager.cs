@@ -40,7 +40,6 @@ public class UIPlayManager : MonoBehaviour
 
     public void ShowLoseNotify() {
         score.text = GameManager.Instance.currentScore.ToString();
-        GameManager.Instance.ChangeHighestScore();
         highestScore.text = GameManager.Instance.highestScore.ToString();
         GameManager.Instance.PauseGame();
         loseFrameObj.SetActive(true);
